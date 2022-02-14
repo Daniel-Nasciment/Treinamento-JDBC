@@ -14,6 +14,7 @@ public class TestaInsercaoComParametros {
 		Connection newConnection = connectionFactory.newConnection();
 
 		// USANDO PREPARESTATEMENT EVITAMOS SQL INJECTION, OS PARAMETROS SÃO PASSADOS COMO "?"
+		// O MESMO MANTEM O CÓDIGO SQL COMPILADO
 		PreparedStatement stm = newConnection.prepareStatement("insert into produto(nome, descricao) values (?, ?)",  Statement.RETURN_GENERATED_KEYS);
 		
 		String nome = "SSD 1TB";
