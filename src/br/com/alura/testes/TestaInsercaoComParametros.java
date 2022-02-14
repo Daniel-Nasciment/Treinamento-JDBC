@@ -12,33 +12,26 @@ public class TestaInsercaoComParametros {
 
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 
-		Connection newConnection = connectionFactory.newConnection();
-
-		try {
-
+		// USANDO TRY-WITH-RESOURCES FICA IMPLICITO O FECHAMENTO DE CONEXÃO E STATEMENT
+		try (Connection newConnection = connectionFactory.newConnection()) {
 			newConnection.setAutoCommit(false);
 
-			// USANDO PREPARESTATEMENT EVITAMOS SQL INJECTION, OS PARAMETROS SÃO PASSADOS
-			// COMO "?"
-			// O MESMO MANTEM O CÓDIGO SQL COMPILADO
-			PreparedStatement stm = newConnection.prepareStatement("insert into produto(nome, descricao) values (?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+			try (PreparedStatement stm = newConnection.prepareStatement(
+					"insert into produto(nome, descricao) values (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+				adicionaProduto(stm, "iPhone 12", "iPhone 12 64GB preto");
+				adicionaProduto(stm, "iPhone 13 PRO MAX", "iPhone 13 128GB verde");
 
-			adicionaProduto(stm, "iPhone 12", "iPhone 12 64GB preto");
-			adicionaProduto(stm, "iPhone 13 PRO MAX", "iPhone 13 128GB verde");
+				newConnection.commit();
 
-			stm.close();
-			newConnection.commit();
-			newConnection.close();
+			} catch (Exception e) {
 
-		} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Erro ao salvar produto.");
+				newConnection.rollback();
 
-			e.printStackTrace();
-			System.out.println("Erro ao salvar produto.");
-			newConnection.rollback();
+			}
 
 		}
-
 	}
 
 	private static void adicionaProduto(PreparedStatement stm, String nome, String descricao) throws SQLException {
@@ -50,7 +43,7 @@ public class TestaInsercaoComParametros {
 //		if(nome.equals("iPhone 13 PRO MAX")) {
 //			throw new RuntimeException();
 //		}
-		
+
 		ResultSet resultSet = stm.getGeneratedKeys();
 
 		while (resultSet.next()) {
