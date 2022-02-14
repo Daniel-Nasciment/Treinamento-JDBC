@@ -20,6 +20,9 @@ public class TestandoDelete {
 
 		System.out.println("Linhas afetadas: " + linhasAfetadas);
 
+		stm.close();
+		newConnection.close();
+		
 	}
 
 }

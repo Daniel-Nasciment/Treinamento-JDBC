@@ -33,6 +33,7 @@ public class TestandoConexao {
 
 		}
 
+		stm.close();
 		newConnection.close();
 
 	}

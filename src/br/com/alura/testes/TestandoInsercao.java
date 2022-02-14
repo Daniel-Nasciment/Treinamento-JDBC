@@ -24,6 +24,7 @@ public class TestandoInsercao {
 			System.out.println("Novo produto criado! ID: " + id);
 		}
 		
+		stm.close();
 		newConnection.close();
 		
 	}
