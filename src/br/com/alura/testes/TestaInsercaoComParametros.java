@@ -14,20 +14,30 @@ public class TestaInsercaoComParametros {
 
 		Connection newConnection = connectionFactory.newConnection();
 
-		newConnection.setAutoCommit(false);
+		try {
 
-		// USANDO PREPARESTATEMENT EVITAMOS SQL INJECTION, OS PARAMETROS SÃO PASSADOS
-		// COMO "?"
-		// O MESMO MANTEM O CÓDIGO SQL COMPILADO
-		PreparedStatement stm = newConnection.prepareStatement("insert into produto(nome, descricao) values (?, ?)",
-				Statement.RETURN_GENERATED_KEYS);
+			newConnection.setAutoCommit(false);
 
-		adicionaProduto(stm, "iPhone 12", "iPhone 12 64GB preto");
-		adicionaProduto(stm, "iPhone 13 PRO MAX", "iPhone 13 128GB verde");
+			// USANDO PREPARESTATEMENT EVITAMOS SQL INJECTION, OS PARAMETROS SÃO PASSADOS
+			// COMO "?"
+			// O MESMO MANTEM O CÓDIGO SQL COMPILADO
+			PreparedStatement stm = newConnection.prepareStatement("insert into produto(nome, descricao) values (?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
 
-		stm.close();
-		newConnection.commit();
-		newConnection.close();
+			adicionaProduto(stm, "iPhone 12", "iPhone 12 64GB preto");
+			adicionaProduto(stm, "iPhone 13 PRO MAX", "iPhone 13 128GB verde");
+
+			stm.close();
+			newConnection.commit();
+			newConnection.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			System.out.println("Erro ao salvar produto.");
+			newConnection.rollback();
+
+		}
 
 	}
 
@@ -37,6 +47,10 @@ public class TestaInsercaoComParametros {
 
 		stm.execute();
 
+//		if(nome.equals("iPhone 13 PRO MAX")) {
+//			throw new RuntimeException();
+//		}
+		
 		ResultSet resultSet = stm.getGeneratedKeys();
 
 		while (resultSet.next()) {
