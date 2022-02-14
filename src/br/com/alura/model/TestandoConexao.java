@@ -1,24 +1,24 @@
-package br.com.alura.testes;
+package br.com.alura.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import br.com.alura.testes.ConnectionFactory;
 
 public class TestandoConexao {
 
 	public static void main(String[] args) throws Exception {
 
-		Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost/loja_virtual?useTimezone=true&serverTimezone=UTC", "root", "97777");
 		
-		// STATEMENT É UMA INTERFACE UTILIZADA PARA EXECUTAR COMANDOS SQL
-		Statement stm = connection.createStatement();
+		ConnectionFactory connectionFactory = new ConnectionFactory();
 		
-		// A PARTIR DO STATEMENT É CRIADO O EXECUTE
+		Connection newConnection = connectionFactory.newConnection();
+		
+		Statement stm = newConnection.createStatement();
+		
 		stm.execute("select * from produto");
 		
-		// A PARTIR DO RESULTSET POSSO ACESSAR OS RESULTADOS
 		ResultSet resultSet = stm.getResultSet();
 		
 		while(resultSet.next()) {
@@ -35,7 +35,7 @@ public class TestandoConexao {
 			
 		}
 		
-		connection.close();
+		newConnection.close();
 
 	}
 
