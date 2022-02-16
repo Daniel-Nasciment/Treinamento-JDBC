@@ -3,8 +3,9 @@ package br.com.alura.testes;
 import java.sql.Connection;
 import java.util.List;
 
+import br.com.alura.dao.ConnectionFactory;
 import br.com.alura.dao.ProdutoDAO;
-import br.com.alura.modelo.Produto;
+import br.com.alura.model.Produto;
 
 public class TestandoListagemEInsercaoComObj {
 

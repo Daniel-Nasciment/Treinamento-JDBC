@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import br.com.alura.dao.ConnectionFactory;
+
 public class TestandoInsercao {
 
 	public static void main(String[] args) throws Exception {

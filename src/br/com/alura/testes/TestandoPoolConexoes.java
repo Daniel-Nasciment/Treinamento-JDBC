@@ -1,5 +1,7 @@
 package br.com.alura.testes;
 
+import br.com.alura.dao.ConnectionFactory;
+
 public class TestandoPoolConexoes {
 
 	public static void main(String[] args) throws Exception {

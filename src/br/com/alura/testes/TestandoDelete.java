@@ -3,6 +3,8 @@ package br.com.alura.testes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import br.com.alura.dao.ConnectionFactory;
+
 public class TestandoDelete {
 
 	public static void main(String[] args) throws Exception {

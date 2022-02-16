@@ -1,4 +1,4 @@
-package br.com.alura.testes;
+package br.com.alura.dao;
 
 import java.sql.Connection;
 

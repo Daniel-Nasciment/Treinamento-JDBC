@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.alura.modelo.Produto;
+import br.com.alura.model.Produto;
 
 public class ProdutoDAO {
 

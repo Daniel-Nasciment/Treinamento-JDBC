@@ -1,10 +1,10 @@
-package br.com.alura.model;
+package br.com.alura.testes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import br.com.alura.testes.ConnectionFactory;
+import br.com.alura.dao.ConnectionFactory;
 
 public class TestandoConexao {
 
